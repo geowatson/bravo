@@ -1,17 +1,17 @@
-#include "atofe.h"
+#include "task.h"
 #include <math.h>
-#include <jmorecfg.h>
+#include <stdbool.h>
 
-int len(char s[]) {
+int len(const char s[]) {
     int i = 0;
     while(s[i] != '\0') i++;
     return i;
 }
 
-double _atof(char s[], int len) {
+double _atof(const char s[], int len) {
     double n = .0;
     int i = 0, denominator = 10, sign = 1;
-    int dot_found = FALSE;
+    bool dot_found = false;
     if(s[0] == '-') {
         sign = -1;
         i++;
@@ -21,7 +21,7 @@ double _atof(char s[], int len) {
 
     for (; i < len; ++i) {
         if (s[i] == '.') {
-            dot_found = TRUE;
+            dot_found = true;
         } else {
             n += s[i]-'0';
             n *= 10;
@@ -36,13 +36,7 @@ double _atof(char s[], int len) {
 
 
 
-double atof(char s[]) {
-    return _atof(s, len(s));
-}
-
-
-
-double atofe(char s[]) {
+double atofe(const char s[]) {
     double n = .0;
     int i = 0, exponent = 0, exp_sign = 1;
 
