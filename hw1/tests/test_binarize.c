@@ -2,6 +2,7 @@
 // Created by cubazis on 24.05.18.
 //
 #include <check.h>
+#include <stdlib.h>
 #include "binarize.h"
 
 #ifndef COMPARATOR
@@ -22,11 +23,11 @@ START_TEST (test_bin_u)
 {
 	unsigned long x = 1608637542;
 	char* output = binarize_u(x);
-	char* pattern = "01011111111000011101110001100110";
-	int k = 1;
-	COMPARATOR(k, output, pattern);
-	ck_assert(1 == k);
-	//printf("%s\n", output);
+    char* pattern = "01011111111000011101110001100110";
+    int k = 1;
+    COMPARATOR(k, output, pattern);
+    free(output);
+    ck_assert(1 == k);
 }
 END_TEST
 
@@ -37,8 +38,9 @@ START_TEST (test_bin_s)
 	char* pattern = "10100000000111100010001110011010";
 	int k = 1;
 	COMPARATOR(k, output, pattern);
-	ck_assert(1 == k);
-	//printf("%s\n", output);
+    printf("%s\n", output);
+    free(output);
+    ck_assert(1 == k);
 }
 END_TEST
 

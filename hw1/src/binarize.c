@@ -2,6 +2,8 @@
 // Created by cubazis on 24.05.18.
 //
 
+#include <stdlib.h>
+#include <string.h>
 #include "binarize.h"
 
 void printBitSet(char b[])
@@ -22,7 +24,7 @@ void printBitSet(char b[])
 
 
 
-void bit_sum(char *b, char *o)
+void bit_sum(char *b, const char *o)
 {
 	int i = 0;
 	while (b[i] != '\0'){
@@ -71,18 +73,32 @@ void one_complement(char *b)
 
 void two_complement(char *b)
 {
-	/** YOUR CODE HERE */
+	one_complement(b);
+	bit_sum(b, binarize_u(1));
 }
 
 char* binarize_u(unsigned long long x)
 {
+    size_t b_len = 33;
+    char* b = malloc(b_len);
+    memset(b, '0', b_len);
+    b[b_len-1] = '\0';
+    int i = b_len - 1 - 1;
+    for (; i >= 0 && x != 0; --i) {
+        b[i] = (char)(x % 2 + '0');
+        x /= 2;
+    }
+    b[i] = (char)(x % 2 + '0');
 
+    return b;
 }
 
-char* binarize_s(signed long long y)
+char* binarize_s(long long y)
 {
-	/** YOUR CODE HERE */
+    char* b = binarize_u(llabs(y));
+    if (y < 0) two_complement(b);
 
+    return b;
 }
 
 
