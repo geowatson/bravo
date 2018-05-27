@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/geowatson/bravo/hw1/1.23/main.c
+main.h
+/Users/geowatson/bravo/hw1/1.23/main.h
+stdlib.h
+/Users/geowatson/bravo/hw1/1.23/stdlib.h
+
+/Users/geowatson/bravo/hw1/1.23/main.h
+stdio.h
+/Users/geowatson/bravo/hw1/1.23/stdio.h
+unistd.h
+/Users/geowatson/bravo/hw1/1.23/unistd.h
+
