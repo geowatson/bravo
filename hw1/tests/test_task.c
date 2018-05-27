@@ -102,7 +102,27 @@ END_TEST
 
 START_TEST (test_binsearch)
 {
-
+    int v1[] = {1};
+    ck_assert(binsearch(1, v1, 1));
+    ck_assert(!binsearch(0, v1, 1));
+    int v2[] = {1, 2, 3, 4};
+    ck_assert(!binsearch(0, v2, 1));
+    ck_assert(binsearch(1, v2, 4));
+    ck_assert(binsearch(3, v2, 4));
+    ck_assert(binsearch(4, v2, 4));
+    int v3[] = {};
+    ck_assert(!binsearch(42, v3, 0));
+    int v4[] = {-34, 0, 23, 43, 54, 65, 76, 1111};
+    ck_assert(binsearch(23, v4, 8));
+    ck_assert(binsearch(1111, v4, 8));
+    ck_assert(binsearch(-34, v4, 8));
+    ck_assert(binsearch(43, v4, 8));
+    ck_assert(binsearch(0, v4, 8));
+    ck_assert(binsearch(65, v4, 8));
+    ck_assert(!binsearch(42, v4, 8));
+    ck_assert(!binsearch(4200, v4, 8));
+    ck_assert(!binsearch(-42, v4, 8));
+    ck_assert(!binsearch(34, v4, 8));
 }
 END_TEST
 

@@ -50,8 +50,6 @@ char* array_changer(const char c[])
 	return b;
 }
 
-#include "atofe.c" // never do this
-
 char* detab(const char input[])
 {
 	/** JUST TO CHECK */
