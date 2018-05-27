@@ -88,7 +88,8 @@ END_TEST
 
 START_TEST (test_htoi)
 {
-
+	const char t1[] = "0x1";
+	ck_assert_str_eq(t1, htoi(t1));
 }
 END_TEST
 
