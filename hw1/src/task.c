@@ -67,3 +67,131 @@ char* entab(const char input[])
 }
 
 /** GET FROM task.h */
+
+char* enter(int n, const char input[]){
+	long long index = -1;
+	int len = 0;
+	int input_size = 0;
+	int new_lines = 0;
+	char current = ' '; //insert new line not after char, put it before
+	//Find a number of new lines needed and size of the input
+	for (input_size = 0; current != '\0'; input_size++){
+		current = input[input_size];
+		if (current == '\0'){
+			continue;
+		}
+		if (current != ' '){
+			len++;
+		}
+		if (current == '\n'){
+			len = 0;
+		}
+		if (len == n + 1){
+			new_lines++;
+			len = 1;
+		}
+	}
+	char* res = (char*) malloc(input_size + new_lines);
+	index = 0;
+	len = 0;
+	//Fill res string
+	for (int i = 0; i < input_size; i++) {
+		current = input[i];
+		//printf("char: %c idx: %d\n", current, index-1);
+		if (current == '\0'){
+			res[index++] = current;
+			continue;
+		}
+		if (current != ' ') {
+			len++;
+		}
+		if (current == '\n') {
+			len = 0;
+		}
+		if (len == n + 1) { //Insert \n and then insert character from the input if len > n
+			res[index++] = '\n';
+			len = 1;
+			//printf("new line! idx: %d\n", index);
+		}
+		res[index++] = current;
+	}
+	//printf("input size: %d\nnew lines: %d\nenter output: %s\n", input_size, new_lines, res);
+	return (res);
+}
+
+
+char* squeeze(const char s1[], const char s2[]){
+	char current = ' ';
+	int s2_len = 0;
+	int s1_len = 0;
+	int res_len = 0;
+	//find length of s1
+	for (s2_len = 0; s2[s2_len] != '\0'; s2_len++);
+	//find length of s2 and length of resulting string
+	current = ' ';
+	for (s1_len = 0;s1[s1_len] != '\0'; s1_len++){
+		current = s1[s1_len];
+		int cont = 0;
+		for (int i=0;i<s2_len;i++){
+			if (s2[i] == current){
+				cont = 1;
+				break;
+			}
+		}
+		if (!cont){
+			res_len++;
+		}
+	}
+	//allocate space for resulting string
+	char* res = (char*)malloc(res_len + 1);
+	//fill result string
+	current = ' ';
+	int index = 0;
+	for (int i=0;i <= s1_len; i++){
+		current = s1[i];
+		int cont = 0;
+		for (int j=0;j<s2_len;j++){
+			if (s2[j] == current){
+				cont = 1;
+				break;
+			}
+		}
+		if (cont){
+			continue;
+		}
+		res[index++] = current;
+	}
+	return (res);
+}
+
+int any(const char s1[], const char s2[]){
+	int alp[257];
+	//Fill alp with zeros
+	for (int i=0;i<257;i++){
+		alp[i] = 0;
+	}
+	//Fill alp with characters from s2
+	for (int i=0;s2[i] != '\0';i++){
+		alp[(int)(s2[i])] = 1;
+	}
+	//Find first index of first character from s2
+	for (int i=0;s1[i] != '\0';i++){
+		if (alp[(int)s1[i]]){
+			return (i);
+		}
+	}
+	return (-1);
+}
+
+unsigned setbits(unsigned x, int p, int n, unsigned y){
+	p--;
+	//printf("x: %u , y: %u\n", x, y);
+	//isolate n rightmost bits from y and place it on (p-1)'th index
+	unsigned val = ((y << (sizeof(unsigned)*8 - n)) >> p);
+	//Set n bits starting from index (p-1) to 0 using mask
+	unsigned mask = ~((0xffffffff << (sizeof(unsigned)*8 - n)) >> p);
+	//printf("val : %u\n", val);
+	//printf("mask : %u\n", mask);
+	//Use mask first, and the apply val
+	return ((x & mask) | val);
+}

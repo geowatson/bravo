@@ -15,6 +15,19 @@ bool compare(const char s1[], const char s2[]) {
     return true;
 }
 
+int compare_strings(char* s1, char* s2){
+	char curr1 = ' ';
+	char curr2 = ' ';
+	for (int i = 0; curr1 != '\0'; i++){
+		curr1 = s1[i];
+		curr2 = s2[i];
+		if (curr1 != curr2){
+			return (0);
+		}
+	}
+	return(1);
+}
+
 #ifndef COMPARATOR
 #define COMPARATOR(res, c1, c2) do                    \
 	{                                             \
@@ -76,7 +89,26 @@ END_TEST
 
 START_TEST (test_enter)
 {
-
+	char inp1[] = "abcabcabc";
+	char* output = enter(3, inp1);
+	char res1[] = "abc\nabc\nabc";
+	ck_assert(compare_strings(output, res1) == 1);
+	char inp2[] = "abcd";
+	output = enter(3, inp2);
+	char res2[] = "abc\nd";
+	ck_assert(compare_strings(output, res2) == 1);
+	char inp3[] = "a";
+	output = enter(3, inp3);
+	char res3[] = "a";
+	ck_assert(compare_strings(output, res3) == 1);
+	char inp4[] = "";
+	output = enter(3, inp4);
+	char res4[] = "";
+	ck_assert(compare_strings(output, res4) == 1);
+	char inp5[] = "\n\n\n\n\n\n\n\n\n";
+	output = enter(3, inp5);
+	char res5[] = "\n\n\n\n\n\n\n\n\n";
+	ck_assert(compare_strings(output, res5) == 1);
 }
 END_TEST
 
@@ -94,19 +126,39 @@ END_TEST
 
 START_TEST (test_squeeze)
 {
-
+//    printf("squeeze 1 : |%s|\n", squeeze("sa","a"));
+	ck_assert(compare_strings(squeeze("sa","a"), "s") == 1);
+//    printf("squeeze 2 : %s\n", squeeze("aaaaaaaaaaaa","a"));
+	ck_assert(compare_strings(squeeze("aaaaaaaaaaaa","a"), "") == 1);
+	ck_assert(compare_strings(squeeze("hjfkndhdoelsanc","z"), "hjfkndhdoelsanc") == 1);
+	ck_assert(compare_strings(squeeze("Wow, it works!",""), "Wow, it works!") == 1);
+	ck_assert(compare_strings(squeeze("saaaasssaaaassss","a"), "ssssssss") == 1);
+//    printf("squeeze 6 : %s\n", squeeze("swawswuwswawgwew wiwnw wwtwhwew tweswtw","sausage in the test"));
+	ck_assert(compare_strings(squeeze("swawswuwswawgwew wiwnw wwtwhwew tweswtw","sausage in the test"), "wwwwwwwwwwwwwwwwwww") == 1);
+	ck_assert(compare_strings(squeeze("",""), "") == 1);
+	ck_assert(compare_strings(squeeze("","dsa"), "") == 1);
 }
 END_TEST
 
 START_TEST (test_any)
 {
-
+	ck_assert(any("abc", "abc") == 0);
+	ck_assert(any("abc", "d") == -1);
+	ck_assert(any("abc", "cb") == 1);
+	ck_assert(any("abc", "") == -1);
+	ck_assert(any("", "nfjdisanjifdoanjfidlasnk") == -1);
+	ck_assert(any("", "") == -1);
 }
 END_TEST
 
 START_TEST (test_setbits)
 {
-
+//    printf("%u\n",setbits(0b000000, 3, 4, 0b001111));
+	ck_assert(setbits(0b000000, 3, 4, 0b001111) == 0b00111100000000000000000000000000);
+	ck_assert(setbits(0b000000, 31, 2, 0b11) == 0b00000000000000000000000000000011);
+	ck_assert(setbits(0b000000, 16, 7, 0b1101111) == 0b00000000000000011011110000000000);
+	ck_assert(setbits(0b11000011011011101001101110100111, 12, 6, 0b101010) == 0b11000011011101010001101110100111);
+	ck_assert(setbits(0b11000011011011101001101110100111, 1, 32, 0b10101010101010101010101010101010) == 0b10101010101010101010101010101010);
 }
 END_TEST
 
