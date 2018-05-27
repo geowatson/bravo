@@ -246,3 +246,7 @@ unsigned setbits(unsigned x, int p, int n, unsigned y){
 	//Use mask first, and the apply val
 	return ((x & mask) | val);
 }
+
+char* itoa(int n, const char s[]) {
+    return itob(n, s, 10);
+}
