@@ -94,7 +94,7 @@ char* entab(const char input[])
 	int j = 0;
 	int space_counter = 0;
 
-	while (i < 1024 && input[i] != '\0') {
+	while (input[i] != '\0') {
 		output[j] = input[i];
 
 		if (input[i] == ' ') {
