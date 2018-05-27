@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdbool.h>
 
-int len(const char s[]) {
-    int i = 0;
+size_t len(const char s[]) {
+    size_t i = 0;
     while(s[i] != '\0') i++;
     return i;
 }

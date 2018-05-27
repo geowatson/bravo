@@ -3,7 +3,17 @@
 //
 
 #include <check.h>
+#include <stdbool.h>
 #include "task.h"
+
+
+
+bool compare(const char s1[], const char s2[]) {
+    for (int i = 0; s1[i] != '\0' || s2[i] != '\0'; i++) {
+        if(s1[i] != s2[i]) return false;
+    }
+    return true;
+}
 
 #ifndef COMPARATOR
 #define COMPARATOR(res, c1, c2) do                    \
@@ -128,6 +138,20 @@ END_TEST
 
 START_TEST (test_escape)
 {
+    char buff[256];
+
+    char s1[] = "aaa";
+    ck_assert(compare(escape(s1, buff), "aaa"));
+    ck_assert(!compare(escape(s1, buff), ""));
+    ck_assert(!compare(escape(s1, buff), "aaaa"));
+    char s2[] = "aaa\taa";
+    ck_assert(compare(escape(s2, buff), "aaa\\taa"));
+    ck_assert(!compare(escape(s2, buff), "aaaaa"));
+    ck_assert(!compare(escape(s2, buff), "aaa\taa"));
+    char s3[] = "\taaa\n\t\naaa\n";
+    ck_assert(compare(escape(s3, buff), "\\taaa\\n\\t\\naaa\\n"));
+    ck_assert(!compare(escape(s3, buff), "\\taaadasd"));
+    ck_assert(!compare(escape(s3, buff), "\taaa\n\t\naaa\n"));
 
 }
 END_TEST

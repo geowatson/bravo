@@ -83,7 +83,7 @@ char* binarize_u(unsigned long long x)
     char* b = malloc(b_len);
     memset(b, '0', b_len);
     b[b_len-1] = '\0';
-    int i = b_len - 1 - 1;
+    size_t i = b_len - 1 - 1;
     for (; i >= 0 && x != 0; --i) {
         b[i] = (char)(x % 2 + '0');
         x /= 2;
