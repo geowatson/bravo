@@ -9,3 +9,6 @@
 #include "unistd.h"
 
 #endif //INC_1_23_MAIN_H
+
+int number(char c);
+int htoi(const char s[]);
