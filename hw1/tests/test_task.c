@@ -121,7 +121,25 @@ END_TEST
 START_TEST (test_htoi)
 {
 	const char t1[] = "0x1";
-	ck_assert_str_eq(t1, htoi(t1));
+	ck_assert_int_eq(1, htoi(t1));
+	const char t2[] = "0xe1";
+	ck_assert_int_eq(225, htoi(t2));
+	const char t3[] = "0x00000000000000000000000000000000000000000";
+	ck_assert_int_eq(0, htoi(t3));
+	const char t4[] = "00000000000000000000000000000000000000001";
+	ck_assert_int_eq(1, htoi(t4));
+	const char t5[] = "e2";
+	ck_assert_int_eq(226, htoi(t5));
+	const char t6[] = "0XaADf";
+	ck_assert_int_eq(43743, htoi(t6));
+	const char t7[] = "0XEEFF";
+	ck_assert_int_eq(61183, htoi(t7));
+	const char t8[] = "3be9";
+	ck_assert_int_eq(15337, htoi(t8));
+	const char t9[] = "0b0";
+	ck_assert_int_eq(176, htoi(t9));
+	const char t10[] = "0x0f";
+	ck_assert_int_eq(15, htoi(t10));
 }
 END_TEST
 
