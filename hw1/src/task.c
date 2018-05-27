@@ -52,18 +52,69 @@ char* array_changer(const char c[])
 
 char* detab(const char input[])
 {
-	/** JUST TO CHECK */
-	char* c = ALLOCATE(10);
-	return c;
+	int n = 0;
+	while (input[n] != '\0') {
+		n++;
+	}
+
+	char* output = malloc(n * 4 + 1);
+
+	int i = 0;
+	int j = 0;
+
+	while (input[i] != '\0'){
+		output[j] = input[i];
+
+		if (input[i] == '\t') {
+			for (int k = 0; k < 4; ++k) {
+				output[j++] = ' ';
+			}
+			--j;
+		}
+
+		i++;
+		j++;
+	}
+
+	output[j] = '\0';
+
+	return output;
 }
 
 char* entab(const char input[])
 {
-	/** JUST TO CHECK */
-	char* c = ALLOCATE(10);
-	int size = 0;
-	STRING_LEN(size, input);
-	return c;
+	int n = 0;
+	while (input[n] != '\0') {
+		n++;
+	}
+
+	char* output = malloc(n * 4 + 1);
+
+	int i = 0;
+	int j = 0;
+	int space_counter = 0;
+
+	while (i < 1024 && input[i] != '\0') {
+		output[j] = input[i];
+
+		if (input[i] == ' ') {
+			space_counter++;
+			if (space_counter == 4) {
+				space_counter = 0;
+				j -= 3;
+				output[j] = '\t';
+			}
+		} else {
+			space_counter = 0;
+		}
+		i++;
+		j++;
+
+	}
+
+	output[j] = '\0';
+
+	return output;
 }
 
 /** GET FROM task.h */

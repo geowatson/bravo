@@ -77,13 +77,55 @@ END_TEST
 
 START_TEST (test_detab)
 {
+	char* str1 = detab("sgdrgw\t\tdfgdfg weqw dsfdf");
+	char* str2 = "sgdrgw        dfgdfg weqw dsfdf";
+	int res = compare(str1, str2);
+	ck_assert(res == 1);
 
+	str1 = detab("\t");
+	str2 = "    ";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	str1 = detab("\t");
+	str2 = "  ";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	str1 = detab("Nothing to change.");
+	str2 = "Nothing to change.";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	free(str1);
+	free(str2);
 }
 END_TEST
 
 START_TEST (test_entab)
 {
+	char* str1 = entab("sgdrgw    dfgdfg weqw dsfdf");
+	char* str2 = "sgdrgw\tdfgdfg weqw dsfdf";
+	int res = compare(str1, str2);
+	ck_assert(res == 1);
 
+	str1 = entab("     ");
+	str2 = "\t ";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	str1 = entab("  ");
+	str2 = "\t";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	str1 = entab("Nothing to change.");
+	str2 = "Nothing to change.";
+	res = compare(str1, str2);
+	ck_assert(res == 1);
+
+	free(str1);
+	free(str2);
 }
 END_TEST
 
