@@ -98,7 +98,6 @@ START_TEST (test_detab)
 	ck_assert(res == 1);
 
 	free(str1);
-	free(str2);
 }
 END_TEST
 
@@ -125,7 +124,6 @@ START_TEST (test_entab)
 	ck_assert(res == 1);
 
 	free(str1);
-	free(str2);
 }
 END_TEST
 
