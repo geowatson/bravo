@@ -281,7 +281,17 @@ END_TEST
 
 START_TEST (test_itob)
 {
-
+    char buff[255];
+    ck_assert(compare(itob(12, buff, 16), "c"));
+    ck_assert(!compare(itob(12, buff, 16), "12"));
+    ck_assert(!compare(itob(12, buff, 16), "b"));
+    ck_assert(compare(itob(1, buff, 16), "1"));
+    ck_assert(compare(itob(1, buff, 2), "1"));
+    ck_assert(compare(itob(3, buff, 16), "3"));
+    ck_assert(compare(itob(3, buff, 10), "3"));
+    ck_assert(compare(itob(3, buff, 2), "11"));
+    ck_assert(compare(itob(0, buff, 16), "0"));
+    ck_assert(compare(itob(33, buff, 16), "21"));
 }
 END_TEST
 
