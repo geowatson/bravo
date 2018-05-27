@@ -20,25 +20,31 @@ int main() {
     char *args[]={"./ts",NULL};
     execvp(args[0],args);
     */
-    printf("%d", htoi("E2fA5"));
+    printf("%d", strrindex("abcdabcdabc", "abc"));
     return 0;
 }
+int strrindex(const char s[], const  char t[]){
+	int lens, lent, seed, j;
+	seed = -1;
+	lent = 0;
+	lens = 0;
+	STRING_LEN(lens, s);
+	STRING_LEN(lent, t);
 
-int htoi(const char s[]) {
-    int res, c, d, p = 0;
-    res = 0;
-    STRING_LEN(p, s);
-    c = (p > 2 && (s[1] == 'x' || s[1] == 'X')) ? 2 : 0;
-    d = c ? c - 2 : 0;
-    for (;s[c] != '\0'; ++c) {
-        res += number(s[c]) * (int)(pow(16, p - d - c - 1));
-    }
-    return res;
-}
+	if (lent > lens)
+		return -1;
 
-int number(char c) {
-    return (c - '0') < 10 ? (c - '0') : (
-            c - '0' < 23 ? c - '0' - 7 :
-            c - '0' - 39
-    );
+	int i = 0;
+	int q = 0;
+	for (; i + lent - 1 < lens; ++i) {
+		q = 0;
+		j = i;
+		while (j < lens && s[j] == t[q]) {
+			q++;
+			j++;
+		}
+		if (q == lent) seed = i;
+	}
+
+	return seed;
 }

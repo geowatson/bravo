@@ -11,4 +11,4 @@
 #endif //INC_1_23_MAIN_H
 
 int number(char c);
-int htoi(const char s[]);
+int strrindex(const char s[], const  char t[]);

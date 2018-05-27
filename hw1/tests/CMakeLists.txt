@@ -4,7 +4,7 @@ find_package(Check REQUIRED)
 find_package(Threads REQUIRED)
 
 add_executable(test_binarize test_binarize.c ../src/binarize.c)
-add_executable(test_task test_task.c ../src/task.c ../src/atofe.c ../src/binsearch.c ../src/escape.c ../src/htoi.c)
+add_executable(test_task test_task.c ../src/task.c ../src/atofe.c ../src/binsearch.c ../src/escape.c ../src/htoi.c ../src/strrindex.c)
 
 include_directories(${CHECK_INCLUDE_DIRS} ../src)
 
