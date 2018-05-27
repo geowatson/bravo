@@ -90,7 +90,7 @@ START_TEST (test_detab)
 	str1 = detab("\t");
 	str2 = "  ";
 	res = compare(str1, str2);
-	ck_assert(res == 1);
+	ck_assert(res == 0);
 
 	str1 = detab("Nothing to change.");
 	str2 = "Nothing to change.";
@@ -117,7 +117,7 @@ START_TEST (test_entab)
 	str1 = entab("  ");
 	str2 = "\t";
 	res = compare(str1, str2);
-	ck_assert(res == 1);
+	ck_assert(res == 0);
 
 	str1 = entab("Nothing to change.");
 	str2 = "Nothing to change.";
