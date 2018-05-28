@@ -325,7 +325,13 @@ END_TEST
 
 START_TEST (test_strrindex)
 {
-
+    ck_assert_int_eq(-1, strrindex("aaaaaaaa", "aaaaaaaaaaaaaaaa"));
+    ck_assert_int_eq(8, strrindex("aaaaaaaaaaaaaaaa", "aaaaaaaa"));
+    ck_assert_int_eq(2, strrindex("abcdc", "cd"));
+    ck_assert_int_eq(0, strrindex("abdbdbdb", "ab"));
+    ck_assert_int_eq(1, strrindex("aa", "a"));
+    ck_assert_int_eq(1, strrindex("ab", "b"));
+    ck_assert_int_eq(2, strrindex("baab", "a"));
 }
 END_TEST
 
