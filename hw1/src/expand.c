@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "task.h"
 
+// expands list from a-z to abc...xyz
 char* expand(const char s1[]) {
     char* output = malloc(1024);
 

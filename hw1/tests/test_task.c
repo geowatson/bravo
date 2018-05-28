@@ -156,16 +156,17 @@ START_TEST (test_flush)
 {
     /*
      * Tests are fine for GCC LLVM (Mac OS X)
+     * may not work fine for all systems.
     */
     FILE *t;
-    t = fopen("t1.c", "w+");
+    t = fopen("t.c", "w+");
     fprintf(t, flush("#include \"stdio.h\" // hello, world\nint main(/* lol kek */) {\n\tprintf(\"123\");\n\treturn 0;\n}\n"));
     fclose(t);
-    ck_assert_int_eq(0, system("c99 t1.c -o t1"));
-    t = fopen("t1.c", "w+");
+    ck_assert_int_eq(0, system("c99 t.c -o t"));
+    t = fopen("t.c", "w+");
     fprintf(t, flush("#include \"stdio.h\"\nint main() {\n\tprintf(\"456/* lol */\");\n\tint a = 0; // some input!\n//some comment!\n\treturn 0;\n}\n"));
     fclose(t);
-    ck_assert_int_eq(0, system("c99 t1.c -o t1"));
+    ck_assert_int_eq(0, system("c99 t.c -o t"));
 }
 END_TEST
 
@@ -341,7 +342,7 @@ START_TEST (test_strrindex)
     ck_assert_int_eq(2, strrindex("abcdc", "cd"));
     ck_assert_int_eq(0, strrindex("abdbdbdb", "ab"));
     ck_assert_int_eq(1, strrindex("aa", "a"));
-    ck_assert_int_eq(1, strrindex("ab", "b"));
+    ck_assert_int_eq(-1, strrindex("ab", "c"));
     ck_assert_int_eq(2, strrindex("baab", "a"));
 }
 END_TEST
