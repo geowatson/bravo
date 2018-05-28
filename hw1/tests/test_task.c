@@ -5,7 +5,7 @@
 #include <check.h>
 #include <stdbool.h>
 #include "task.h"
-
+#include "unistd.h"
 
 
 bool compare(const char s1[], const char s2[]) {
@@ -154,7 +154,18 @@ END_TEST
 
 START_TEST (test_flush)
 {
-
+    /*
+     * Tests are fine for GCC LLVM (Mac OS X)
+    */
+    FILE *t;
+    t = fopen("t1.c", "w+");
+    fprintf(t, flush("#include \"stdio.h\" // hello, world\nint main(/* lol kek */) {\n\tprintf(\"123\");\n\treturn 0;\n}\n"));
+    fclose(t);
+    ck_assert_int_eq(0, system("c99 t1.c -o t1"));
+    t = fopen("t1.c", "w+");
+    fprintf(t, flush("#include \"stdio.h\"\nint main() {\n\tprintf(\"456/* lol */\");\n\tint a = 0; // some input!\n//some comment!\n\treturn 0;\n}\n"));
+    fclose(t);
+    ck_assert_int_eq(0, system("c99 t1.c -o t1"));
 }
 END_TEST
 
