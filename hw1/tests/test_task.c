@@ -270,7 +270,7 @@ END_TEST
 START_TEST (test_expand)
 {
 	char* str1 = expand("---a-a-");
-	char* str2 = "-a-";
+	char* str2 = "---a-";
 	ck_assert(compare(str1, str2));
 
 	str1 = expand("");
