@@ -275,13 +275,29 @@ END_TEST
 
 START_TEST (test_itoa)
 {
-
+    char buff[255];
+    ck_assert(compare(itoa(12, buff), "12"));
+    ck_assert(compare(itoa(34, buff), "34"));
+    ck_assert(compare(itoa(-0, buff), "0"));
+    ck_assert(compare(itoa(32423, buff), "32423"));
+    ck_assert(compare(itoa(-423, buff), "-423"));
 }
 END_TEST
 
 START_TEST (test_itob)
 {
-
+    char buff[255];
+    ck_assert(compare(itob(12, buff, 16), "c"));
+    ck_assert(!compare(itob(12, buff, 16), "12"));
+    ck_assert(!compare(itob(12, buff, 16), "b"));
+    ck_assert(compare(itob(1, buff, 16), "1"));
+    ck_assert(compare(itob(1, buff, 2), "1"));
+    ck_assert(compare(itob(3, buff, 16), "3"));
+    ck_assert(compare(itob(3, buff, 10), "3"));
+    ck_assert(compare(itob(3, buff, 2), "11"));
+    ck_assert(compare(itob(0, buff, 16), "0"));
+    ck_assert(compare(itob(33, buff, 16), "21"));
+    ck_assert_str_eq(itob(-33, buff, 16), "-21");
 }
 END_TEST
 
