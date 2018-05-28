@@ -269,7 +269,29 @@ END_TEST
 
 START_TEST (test_expand)
 {
+	char* str1 = expand("---a-a-");
+	char* str2 = "-a-";
+	ck_assert(compare(str1, str2));
 
+	str1 = expand("");
+	str2 = "";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("-9-3-9");
+	str2 = "-9876543456789";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("a-z0-c");
+	str2 = "abcdefghijklmnopqrstuvwxyz0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abc";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("0-A-z");
+	str2 = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("0-A---z");
+	str2 = "0123456789:;<=>?@A---z";
+	ck_assert(compare(str1, str2));
 }
 END_TEST
 
