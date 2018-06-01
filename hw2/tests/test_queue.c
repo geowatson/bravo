@@ -3,11 +3,33 @@
 //
 
 #include <check.h>
+#include <math.h>
 #include "priority_queue.h"
 
 START_TEST (test_insert)
     {
-        //YOUR CODE HERE
+        ck_assert(insert(10.1, 3) == 0);
+        ck_assert(insert(20.2, 7) == 0);
+        ck_assert(insert(30.3, 10) == 0);
+        ck_assert(insert(40.4, 13) == 0);
+        ck_assert(insert(50.5, 9) == 0);
+        ck_assert(insert(530.5, -11) == 0);
+        ck_assert(insert(250.5, 4) == 0);
+
+        ck_assert(extract_min() == 530.5);
+        ck_assert(extract_min() == 10.1);
+        ck_assert(extract_min() == 250.5);
+        ck_assert(extract_min() == 20.2);
+        ck_assert(extract_min() == 50.5);
+        ck_assert(extract_min() == 30.3);
+        ck_assert(extract_min() == 40.4);
+        ck_assert(extract_min() == -INFINITY);
+
+        for (int i = 0; i < 100; ++i) {
+            ck_assert(insert(i, i) == 0);
+        }
+
+        ck_assert(insert(14, 88) == 1);
     }
 END_TEST
 
@@ -34,5 +56,4 @@ int main(int argc, char *argv[]) {
     number_failed = srunner_ntests_failed(runner);
     srunner_free(runner);
     return number_failed;
-
 }
