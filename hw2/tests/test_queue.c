@@ -3,10 +3,21 @@
 //
 
 #include <check.h>
-#include <math.h>
 #include "priority_queue.h"
 
 START_TEST (test_insert)
+    {
+        for (int i = 0; i < 100; ++i) {
+            ck_assert(insert(i, i) == 0);
+        }
+
+        ck_assert(insert(14, 88) == 1);
+        extract_min();
+        ck_assert(insert(3, 9) == 2);
+    }
+END_TEST
+
+START_TEST (test_min)
     {
         ck_assert(insert(10.1, 3) == 0);
         ck_assert(insert(20.2, 7) == 0);
@@ -24,18 +35,6 @@ START_TEST (test_insert)
         ck_assert(extract_min() == 30.3);
         ck_assert(extract_min() == 40.4);
         ck_assert(extract_min() == -INFINITY);
-
-        for (int i = 0; i < 100; ++i) {
-            ck_assert(insert(i, i) == 0);
-        }
-
-        ck_assert(insert(14, 88) == 1);
-    }
-END_TEST
-
-START_TEST (test_min)
-    {
-        //YOUR CODE HERE
     }
 END_TEST
 

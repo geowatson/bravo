@@ -2,7 +2,6 @@
 // Created by bogdan on 6/1/18.
 //
 
-#include <math.h>
 #include "priority_queue.h"
 
 struct Node
@@ -69,6 +68,10 @@ int insert(double value, int key)
 
             return 0;
         }
+    }
+
+    if (queue -> key == key) {
+        return 2;
     }
 
     new_node -> prev = queue -> prev;

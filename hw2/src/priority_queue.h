@@ -5,8 +5,8 @@
 #ifndef __QUEUE_H_
 #define __QUEUE_H_
 
+#include <math.h>
 #include "stdio.h"
-#include "stdlib.h"
 
 int insert(double value, int key);
 
