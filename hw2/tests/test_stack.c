@@ -20,7 +20,7 @@ START_TEST (test_pop)
             push(1.0);
             ck_assert(abs((double)1 - pop()) <= eps);
             ck_assert(abs((double)0 - pop()) <= eps);
-            ck_assert(pop() == INFINITY);
+            ck_assert(pop() == -INFINITY);
 		}
 END_TEST
 
@@ -28,6 +28,7 @@ END_TEST
 START_TEST (test_peek)
 {
     double eps = 10e-9;
+    ck_assert(pick() == -INFINITY);
     for (int i=0;i<50;i++){
         ck_assert(push((double)i) == 0);
         ck_assert(abs((double)i - pick()) <= eps);
