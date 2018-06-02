@@ -14,7 +14,7 @@ struct Node
 };
 
 struct Node *queue = NULL; // it is your queue to work with it
-int counter = 0;
+int size = 0;
 
 int insert(double value, int key)
 {
@@ -26,12 +26,16 @@ int insert(double value, int key)
     // the queue size is 100 elements
     //struct Node* current = &queue;
 
-    if (counter == 100) {
+    if (size == 100) {
         return 1;
     }
 
-    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node*) * 2 + sizeof(double) + sizeof(int));
-    ++counter;
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    if (new_node == NULL) {
+        return 2;
+    }
+
+    ++size;
 
     if (queue == NULL) {
         new_node -> prev = NULL;
@@ -47,7 +51,7 @@ int insert(double value, int key)
 
         return 0;
 
-    } else while (queue -> key < key) {
+    } else while (queue -> key <= key) {
 
         if (queue -> next != NULL) {
             queue = queue -> next;
@@ -68,10 +72,6 @@ int insert(double value, int key)
 
             return 0;
         }
-    }
-
-    if (queue -> key == key) {
-        return 2;
     }
 
     new_node -> prev = queue -> prev;
@@ -104,10 +104,19 @@ double extract_min()
         printf("Error. Queue is already empty.");
         return -INFINITY;
     } else {
-        --counter;
+        --size;
 
         double min_value = queue -> value;
-        queue = queue -> next;
+
+        struct Node* next = queue -> next;
+
+        free(queue);
+
+        queue = next;
+
+        if (queue != NULL) {
+            queue -> prev = NULL;
+        }
 
         return min_value;
     }

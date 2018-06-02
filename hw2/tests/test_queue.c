@@ -13,7 +13,7 @@ START_TEST (test_insert)
 
         ck_assert(insert(14, 88) == 1);
         extract_min();
-        ck_assert(insert(3, 9) == 2);
+        ck_assert(insert(3, 9) == 0);
     }
 END_TEST
 
