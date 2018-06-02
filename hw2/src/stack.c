@@ -46,7 +46,7 @@ int push(double value)
 
 	if (stack == NULL)
     {
-        struct Node* buff = malloc(sizeof(struct Node));
+        struct Node* buff = (struct Node*)malloc(sizeof(struct Node));
         if (buff == NULL)
             return (2);
         stack = buff;
@@ -57,7 +57,7 @@ int push(double value)
         return (0);
     }
 	struct Node* prev = stack;
-    struct Node* buff = malloc(sizeof(struct Node));
+    struct Node* buff = (struct Node*)malloc(sizeof(struct Node));
     if (buff == NULL)
         return (2);
     stack = buff;
@@ -80,7 +80,7 @@ double pop()
 	// if stack is empty returns -infinity and print error message to the screen
     if (stack == NULL){
         printf("***ERROR : Nothing to pop!!!***");
-        return (INFINITY);
+        return (-INFINITY);
     }
     struct Node* prev = (*stack).prev;
     double val = (*stack).value;
@@ -103,6 +103,6 @@ double pick()
         return (val);
     }
     printf("***ERROR : Nothing to pick!!!***\n");
-    return (INFINITY);
+    return (-INFINITY);
 }
 
