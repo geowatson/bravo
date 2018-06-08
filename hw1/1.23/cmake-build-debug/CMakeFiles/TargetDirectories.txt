@@ -1,4 +1,0 @@
-/Users/geowatson/bravo/hw1/1.23/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/geowatson/bravo/hw1/1.23/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/geowatson/bravo/hw1/1.23/cmake-build-debug/CMakeFiles/test.dir
-/Users/geowatson/bravo/hw1/1.23/cmake-build-debug/CMakeFiles/main.dir

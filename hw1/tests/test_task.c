@@ -5,7 +5,7 @@
 #include <check.h>
 #include <stdbool.h>
 #include "task.h"
-
+#include "unistd.h"
 
 
 bool compare(const char s1[], const char s2[]) {
@@ -154,7 +154,19 @@ END_TEST
 
 START_TEST (test_flush)
 {
-
+    /*
+     * Tests are fine for GCC LLVM (Mac OS X)
+     * may not work fine for all systems.
+    */
+    FILE *t;
+    t = fopen("t.c", "w+");
+    fprintf(t, flush("#include \"stdio.h\" // hello, world\nint main(/* lol kek */) {\n\tprintf(\"123\");\n\treturn 0;\n}\n"));
+    fclose(t);
+    ck_assert_int_eq(0, system("c99 t.c -o t"));
+    t = fopen("t.c", "w+");
+    fprintf(t, flush("#include \"stdio.h\"\nint main() {\n\tprintf(\"456/* lol */\");\n\tint a = 0; // some input!\n//some comment!\n\treturn 0;\n}\n"));
+    fclose(t);
+    ck_assert_int_eq(0, system("c99 t.c -o t"));
 }
 END_TEST
 
@@ -269,7 +281,29 @@ END_TEST
 
 START_TEST (test_expand)
 {
+	char* str1 = expand("---a-a-");
+	char* str2 = "---a-";
+	ck_assert(compare(str1, str2));
 
+	str1 = expand("");
+	str2 = "";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("-9-3-9");
+	str2 = "-9876543456789";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("a-z0-c");
+	str2 = "abcdefghijklmnopqrstuvwxyz0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abc";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("0-A-z");
+	str2 = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz";
+	ck_assert(compare(str1, str2));
+
+	str1 = expand("0-A---z");
+	str2 = "0123456789:;<=>?@A---z";
+	ck_assert(compare(str1, str2));
 }
 END_TEST
 
@@ -303,7 +337,13 @@ END_TEST
 
 START_TEST (test_strrindex)
 {
-
+    ck_assert_int_eq(-1, strrindex("aaaaaaaa", "aaaaaaaaaaaaaaaa"));
+    ck_assert_int_eq(8, strrindex("aaaaaaaaaaaaaaaa", "aaaaaaaa"));
+    ck_assert_int_eq(2, strrindex("abcdc", "cd"));
+    ck_assert_int_eq(0, strrindex("abdbdbdb", "ab"));
+    ck_assert_int_eq(1, strrindex("aa", "a"));
+    ck_assert_int_eq(-1, strrindex("ab", "c"));
+    ck_assert_int_eq(2, strrindex("baab", "a"));
 }
 END_TEST
 
